@@ -1,8 +1,10 @@
 const http = require("http")
 const fs = require("fs")
 const { guardarUsuario } = require("./consultas");
+const { getUsuarios } = require("./consultas");
+const { getTransferencias } = require("./consultas");
 
-http.createServer((req, res) => {
+http.createServer(async (req, res) => {
     if (req.url == "/" && req.method == "GET") {
         fs.readFile("index.html", (err, data) => {
             if (err) {
@@ -25,9 +27,28 @@ http.createServer((req, res) => {
                 const result = await guardarUsuario(usuario)
                 res.statusCode = 201
             } catch (e) {
+                console.log(e)
                 res.statusCode = 500
                 res.end("Ocurrió un problema en el servidor..." + e)
             }
         })
+    }
+    if (req.url == "/usuarios" && req.method == "GET") {
+        try {
+            const usuarios = await getUsuarios();
+            res.end(JSON.stringify(usuarios))
+        } catch (e) {
+            res.statusCode = 500
+            res.end("Ocurrió un problema con el servidor..." + e)
+        }
+    }
+    if (req.url == "/transferencias" && req.method == "GET") {
+        try {
+            const transferencias = await getTransferencias();
+            res.end(JSON.stringify(transferencias))
+        } catch (e) {
+            res.statusCode = 500
+            res.end("Ocurrió un problema con el servidor..." + e)
+        }
     }
 }).listen(3000, console.log("SERVER ON"))
