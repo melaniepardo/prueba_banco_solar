@@ -24,7 +24,7 @@ const getUsuarios = async () => {
     return result.rows
 }
 
-// MODIFICA TABLA USUARIOS Y transacciones
+// MODIFICA USUARIOS Y tabla transacciones
 const nuevaTransaccion = async (cliente) => {
     const emisor = {
         text: 'UPDATE usuarios SET balance = saldo - $1 WHERE id = $2',
@@ -52,4 +52,32 @@ const getTransferencias = async () => {
     const result = await pool.query("SELECT * FROM transferencias")
     return result.rows
 }
-module.exports = { guardarUsuario, getUsuarios, nuevaTransaccion, getTransferencias }
+// const editarUsuario = async (datos) => {
+//     const consulta = {
+//         text: `UPDATE usuarios SET id = $1, nombre = $2 = WHERE id = $1 RETURNING *`,
+//         values: datos,
+//     };
+//     try {
+//         const result = await pool.query(consulta);
+//         console.log(result);
+//         return result;
+//     } catch (error) {
+//         console.log(error);
+//         return error;
+//     }
+// };
+
+
+// const eliminarUsuario = async (id) => {
+//     try {
+//         const result = await pool.query(
+//             `DELETE FROM usuarios WHERE id = ${id} `
+//         );
+//         return result;
+//     } catch (error) {
+//         console.log(error.code);
+//         return error;
+//     }
+// }
+
+module.exports = { guardarUsuario, getUsuarios, nuevaTransaccion, getTransferencias, eliminarUsuario, editarUsuario }
