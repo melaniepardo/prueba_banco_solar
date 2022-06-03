@@ -6,7 +6,6 @@ const { guardarUsuario } = require("./guardarUsuario");
 const { getUsuarios } = require("./guardarUsuario");
 const { nuevaTransaccion } = require("./nuevaTransaccion");
 const { getTransferencias } = require("./getTransferencias");
-// const { transferir } = require("./funciona");
 const { editarUsuario } = require("./editarUsuario");
 const { eliminarUsuario } = require("./eliminarUsuario");
 const { guardarTransferencia } = require("./nuevaTransaccion");
@@ -24,22 +23,6 @@ http.createServer(async (req, res) => {
             }
         })
     }
-    // pool.connect(async (err, cliente, release) => {
-        // if (err) {
-        //     return console.error(err.code)
-        // }
-        // if (nuevaTransaccion === 'nuevaTransaccion') {
-        //     await nuevaTransaccion(cliente)
-        // }
-        // if (getTransferencias === 'getTransferencias') {
-        //     await getTransferencias(cliente)
-        // }
-        // if (guardarTransferencia === 'guardarTransferencia') {
-        // await guardarTransferencia(cliente)
-        // }
-        // release()
-        // pool.end()
-    // })
 
     if (req.url == "/usuario" && req.method == "POST") {
         let body = ""
@@ -82,20 +65,11 @@ http.createServer(async (req, res) => {
             res.end(JSON.stringify(respuesta, null, 1))
         })
     }
-    //         try {
-    //             const result = await guardarTransferencia(transferencia)
-    //             res.statusCode = 201
-    //         } catch (e) {
-    //             console.log(e)
-    //             res.statusCode = 500
-    //             res.end("Ocurrió un problema en el servidor..." + e)
-    //         }
-    //     })
-    // }
+
     if (req.url == "/transferencias" && req.method == "GET") {
         try {
             const transferencias = await getTransferencias();
-            res.writeHead(200, {'content-type': 'aplication/json'})
+            res.writeHead(200, { 'content-type': 'aplication/json' })
             res.end(JSON.stringify(transferencias))
         } catch (e) {
             res.statusCode = 500
@@ -103,7 +77,7 @@ http.createServer(async (req, res) => {
         }
     }
     if (req.url.startsWith('/usuario?') && req.method == "PUT") {
-        const { id } = url.parse(req.url,true).query
+        const { id } = url.parse(req.url, true).query
         let body = "";
 
         req.on("data", (chunk) => {

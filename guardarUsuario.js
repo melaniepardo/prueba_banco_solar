@@ -7,17 +7,6 @@ const pool = new Pool({
     port: 5432,
     database: "bancosolar",
 })
-// revisar
-// pool.connect(async (err, cliente, release) => {
-//     if (err) {
-//         return console.error(err.code)
-//     }
-//     if (nuevaTransaccion === 'nueva_transaccion') {
-//         await nuevaTransaccion(cliente)
-//     }
-//     release()
-//     pool.end()
-// })
 
 //INSERTA USUARIOS
 const guardarUsuario = async (usuario) => {
@@ -34,6 +23,5 @@ const getUsuarios = async () => {
     const result = await pool.query("SELECT * FROM usuarios")
     return result.rows
 }
-
 
 module.exports = { guardarUsuario, getUsuarios }

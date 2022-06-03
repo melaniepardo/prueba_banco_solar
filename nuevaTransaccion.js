@@ -10,13 +10,7 @@ const nuevaTransaccion = async (cliente) => {
         text: 'UPDATE usuarios SET balance = balance + $1 WHERE id = $2',
         values: [cliente[2], cliente[1]]
     }
-    // const guardarTransferencia = async (transferencia) => {
-    //     const fecha = new Date()//instancia un nuevo objeto fecha sin un formato especifico, sólo la del momento
-    //     const [emisor, receptor, monto] = Object.values(transferencia)//destructuring a los 3 valores
-
     const guardarTransferencia = {
-        // rowMode: "array",
-        // name: 'sql-user', // prepared statement
         text: "INSERT INTO transferencias (emisor, receptor, monto, fecha ) VALUES ($1,$2,$3,now())",
         values: cliente
     }

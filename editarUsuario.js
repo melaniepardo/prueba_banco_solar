@@ -1,4 +1,3 @@
-//revisar
 const { pool } = require("./config");
 
 const editarUsuario = async (datos, id) => {
